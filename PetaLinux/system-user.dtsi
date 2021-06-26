@@ -1,0 +1,40 @@
+/include/ "system-conf.dtsi"
+/ {
+
+	leds {
+		compatible = "gpio-leds";
+
+		ds23 {
+			label = "ds23";
+			gpios = <&gpio0 10 0>;
+			linux,default-trigger = "heartbeat";
+		};
+	};
+};
+
+&gpio0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_gpio0_default>;
+};
+
+&pinctrl0 {
+	pinctrl_gpio0_default: gpio0-default {
+		mux {
+			function = "gpio0";
+			groups = "gpio0_9_grp", "gpio0_10_grp", "gpio0_11_grp";
+		};
+
+		conf {
+			groups = "gpio0_9_grp", "gpio0_10_grp", "gpio0_11_grp";
+			slew-rate = <0>;
+			io-standard = <1>;
+		};
+
+		conf-pull-up {
+			pins = "MIO9", "MIO10", "MIO11";
+			bias-pull-up;
+		};
+	};
+};
+
+

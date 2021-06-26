@@ -1,0 +1,4 @@
+bootargs=console=ttyPS0,115200 root=/dev/mmcblk0p2 rw earlyprintk earlycon loglevel=8 rootfstype=ext4 rootwait
+load_fpga=echo Loading bitstream from SD/MMC/eMMC to RAM.. && load mmc 0 ${loadbit_addr} ${bitstream_image} && fpga loadb 0 ${loadbit_addr} ${filesize}
+load_image=fatload mmc 0 ${kernel_load_address} ${kernel_image} && fatload mmc 0 ${devicetree_load_address} devicetree.dtb
+uenvcmd=run load_fpga && echo Copying Linux from SD to RAM... &&  run load_image && bootm ${kernel_load_address} - ${devicetree_load_address}
